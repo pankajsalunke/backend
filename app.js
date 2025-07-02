@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import path from 'path';
 
 const app = express();
 
@@ -9,11 +10,11 @@ app.use(cors());
 app.use(express.json({limit: "16kb"}));
 app.use(express.urlencoded({extended: true, limit: "16kb"}));
 // app.use(express.
-app.use(express.static("public"));
 app.use(cookieParser());
-
-app.get("*", (req, res) => {
-  res.sendFile("public", "index.html");
+app.use(express.static(path.resolve("client")));
+// app.use(express.static("public"));
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve("dist", "index.html"));
 });
 
 // import routes
